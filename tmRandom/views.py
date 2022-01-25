@@ -1,6 +1,6 @@
 from flask import render_template, request
 from tmRandom import app
-from .models.game import Game
+from .game import Game
 import json
 
 
@@ -35,4 +35,3 @@ def game(game_json):
     else:
         json.loads(game_json)
         return render_template('game.html', game_dict=json.loads(game_json))
-

@@ -1,11 +1,9 @@
 import random
-from .factions import Faction
 import json
 
 
 class Game:
     def __init__(self, mini, merchants, num_players, players):
-        print("Welcome to Travis' Terra Mysica Randomizer!")
         self.num_players = 0
         self.players = []
         self.merchants = False
@@ -22,7 +20,6 @@ class Game:
         self.set_scoring_bonus()
         self.set_bonus_tiles()
         self.set_round_tiles()
-        self.set_random_factions()
 
     def set_game_type(self, mini, merchants):
         if mini:
@@ -39,10 +36,6 @@ class Game:
         random.shuffle(self.players)
         random.shuffle(self.players)
 
-        print("Turn Order: " + ", ".join(
-            [str(player) for player in self.players]
-        ))
-
     def set_board(self):
         boards = [
             "Base Game",
@@ -54,7 +47,6 @@ class Game:
         random.shuffle(boards)
         random.shuffle(boards)
         self.board = boards.pop()
-        print("Board Type: " + self.board)
 
     def set_scoring_bonus(self):
         tiles = [
@@ -68,8 +60,6 @@ class Game:
         random.shuffle(tiles)
         random.shuffle(tiles)
         self.scoring_bonus = tiles.pop()
-
-        print("Scoring Bonus: " + self.scoring_bonus)
 
     def set_bonus_tiles(self):
         tiles = ["1 Priest",
@@ -91,9 +81,6 @@ class Game:
         random.shuffle(tiles)
         while len(self.bonus_tiles) < len(self.players) + 3:
             self.bonus_tiles.append(tiles.pop())
-        print("Bonus Tiles:")
-        for tile in self.bonus_tiles:
-            print("\t" + tile)
 
     def set_round_tiles(self):
         tiles = ["2VP/Dwelling | Priest/4 Water",
@@ -135,32 +122,8 @@ class Game:
             self.round_tiles[str(round_num)] = choice
             round_num -= 1
 
-        for key, value in self.round_tiles.items():
-            print("Round " + str(key) + ": " + value)
-
-    def set_random_factions(self):
-        if self.random_draw:
-            print("Drawing Random Factions...")
-            for player in self.players:
-                Faction.get_color(player)
-            print("Final Faction Draws:")
-            for player in self.players:
-                print(player.get_name() + " | " + player.get_faction())
-
     def output(self):
         output = {'players': self.players, 'board': self.board, 'scoring_bonus': self.scoring_bonus,
                   'bonus_tiles': self.bonus_tiles, 'round_tiles': list(self.round_tiles.items())}
 
         return json.dumps(output)
-
-
-
-
-
-
-
-
-
-
-
-
