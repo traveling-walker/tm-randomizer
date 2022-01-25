@@ -25,7 +25,14 @@ def index():
     else:
         return render_template("main.html")
 
+    
+@app.route('/game', methods=["GET", "POST"])
 def game(game_json):
-    json.loads(game_json)
-    return render_template('game.html', game_dict=json.loads(game_json))
+    if 'restart' in request.method:
+        return render_template("main.html")
+    elif 'faction' in request.method:
+        pass
+    else:
+        json.loads(game_json)
+        return render_template('game.html', game_dict=json.loads(game_json))
 
