@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Randomized TM Game</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+</head>
+<body>
+<h1>Here is Your Randomized Terra Mystica Game</h1>
+
+<table>
+    <tr>
+        <td>Starting Order:</td>
+        <td>{{', '.join(game_dict['players'])}}</td>
+    </tr>
+    <tr>
+        <td>Board Type: </td>
+        <td>{{game_dict['board']}}</td>
+    </tr>
+    <tr>
+        <td>Scoring Bonus:</td>
+        <td>{{game_dict['scoring_bonus']}}</td>
+    </tr>
+    <tr>
+        <td>Bonus Tiles:</td>
+        <td style="white-space:pre">{{"\n".join(game_dict['bonus_tiles'])}}</td>
+    </tr>
+    <tr>
+        <td>Round Bonuses:</td>
+        <td>{% for round in game_dict['round_tiles'] %}Round {{round[0]}} | {{round[1]}}<br>{% endfor %}</td>
+    </tr>
+
+</table>
+
+</body>
+</html>
