@@ -54,8 +54,8 @@ function get_color(player) {
         colors.sort();
 
         let choice = prompt(player + " drew " + draw + ".\nChoose a terrain color:\n" + colors.join(", "));
-        while (choice == null) {
-            choice = prompt(player + " drew " + draw + ".\nChoose a terrain color:\n" + colors.join(", "));
+        while (choice == null || choice == '') {
+            choice = prompt("That is not a valid terrain option. Please try again." + ".\nChoose a terrain color:\n" + colors.join(", "));
         }
 
         let exists = colors.indexOf(choice[0].toUpperCase() + choice.slice(1).toLowerCase())
