@@ -47,10 +47,10 @@ class Game:
         boards = [
             "Base Game",
             "Revised Base Game",
-            "Fire & Ice"
+            "Fire & Ice",
+            "Loon Lakes",
+            "Fjords"
         ]
-        if self.merchants:
-            boards.extend(["Loon Lakes", "Fjords"])
         random.shuffle(boards)
         random.shuffle(boards)
         self.board = boards.pop()
