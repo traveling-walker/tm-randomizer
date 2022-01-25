@@ -5,26 +5,35 @@ function shuffle(array) {
   }
 }
 
+let colors = ["Green",
+    "Black",
+    "Brown",
+    "Gray",
+    "Blue",
+    "Red",
+    "Yellow",
+    "Ice",
+    "Volcano",
+    "Variable"
+];
+
+
 function get_color(player) {
-    shuffle(colors);
     shuffle(colors);
 
     let draw = colors.pop();
+    let accept = confirm(player + " drew " + draw + ". Accept?")
 
-    if (confirm(player + " drew " + draw + ". Accept?")) {
-        $("#factions").append("<tr><td>" + player + "</td><td>" + draw + "</td></tr>");
+    while (accept != true) {
 
-
-    } else {
         colors.push(draw);
-        shuffle(colors);
         shuffle(colors);
 
         draw = colors.pop();
 
-        $("#factions").append("<tr><td>" + player + "</td><td>" + draw + "</td></tr>");
-
+        accept = confirm(player + " drew " + draw + ". Accept?");
     }
+    $("#factions").append("<tr><td>" + player + "</td><td>" + draw + "</td></tr>");
 
     if (["Ice", "Variable"].includes(draw)) {
         let temp = [];
@@ -45,6 +54,9 @@ function get_color(player) {
         colors.sort();
 
         let choice = prompt(player + " drew " + draw + ".\nChoose a terrain color:\n" + colors.join(", "));
+        while (choice == null) {
+            choice = prompt(player + " drew " + draw + ".\nChoose a terrain color:\n" + colors.join(", "));
+        }
 
         let exists = colors.indexOf(choice[0].toUpperCase() + choice.slice(1).toLowerCase())
 
@@ -61,20 +73,7 @@ function get_color(player) {
 
 }
 
-let colors = ["Green",
-    "Black",
-    "Brown",
-    "Gray",
-    "Blue",
-    "Red",
-    "Yellow",
-    "Ice",
-    "Volcano",
-    "Variable"
-];
-
 let players = $("#players").text().split(", ");
-
 
 $("#faction").click(function() {
     players.forEach(function(item, index, array) {
@@ -82,5 +81,18 @@ $("#faction").click(function() {
     });
 
     $("#faction").hide();
+    $("#redraw").show();
 
 });
+
+$("#redraw").click(function() {
+    colors = ["Green", "Black", "Brown", "Gray", "Blue", "Red", "Yellow", "Ice", "Volcano", "Variable"];
+
+    $("#factions tr").remove()
+
+    players.forEach(function(item, index, array) {
+        get_color(item)
+    });
+
+});
+
